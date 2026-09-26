@@ -66,9 +66,7 @@
 html,body{height:100%}
 html{scroll-padding-top:var(--pad-t)}
 body{
-  margin:0;
-  background: radial-gradient(ellipse at 50% 32%, #f8f6f2 0%, #edeae3 55%, #ded9ce 100%);
-  color:var(--ink);
+  margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--font-ui); font-size:16px; line-height:1.6;
   -webkit-font-smoothing:antialiased; overflow:hidden;
 }
@@ -97,16 +95,9 @@ button{font:inherit; color:inherit}
 .skip:focus{transform:none; color:#fff}
 
 /* ============================================================
-   STAGE & ARCHITECTURAL VIGNETTE
+   STAGE
    ============================================================ */
-#stage{
-  position:fixed; inset:0;
-  background: radial-gradient(ellipse at 50% 35%, #f9f7f3 0%, #ece9e2 50%, #dbd6cb 100%);
-}
-#stage::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: radial-gradient(circle at 50% 50%, transparent 68%, rgba(35,37,42,0.06) 100%);
-}
+#stage{position:fixed; inset:0}
 #scene-canvas{display:block; width:100%; height:100%; touch-action:none}
 
 /* ============================================================
@@ -126,29 +117,12 @@ button{font:inherit; color:inherit}
   font-family:var(--font-mono); font-size:11px; letter-spacing:.16em;
   text-transform:uppercase; color:var(--muted); margin-top:5px;
 }
-.brand .lab-badge{
-  display:inline-flex; align-items:center; gap:7px; margin-top:9px;
-  font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--orange-ink); background:var(--orange-soft); border:1px solid var(--orange);
-  padding:3px 9px; border-radius:100px;
-}
-.brand .pulse-dot{
-  width:6px; height:6px; border-radius:50%; background:var(--orange);
-  box-shadow:0 0 0 0 rgba(232, 89, 12, 0.6);
-  animation:lab-pulse 2.2s infinite;
-}
-@keyframes lab-pulse{
-  0%{box-shadow:0 0 0 0 rgba(232,89,12,0.6)}
-  70%{box-shadow:0 0 0 6px rgba(232,89,12,0)}
-  100%{box-shadow:0 0 0 0 rgba(232,89,12,0)}
-}
 .brand .rule{width:34px; height:3px; background:var(--orange); margin-top:10px; border-radius:2px}
 
 .readout{
   position:absolute; right:clamp(14px,3vw,34px); top:calc(var(--pad-t) + clamp(14px,3vw,30px));
-  background:rgba(255, 255, 255, 0.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(221, 216, 208, 0.95); border-radius:var(--r-m);
-  padding:11px 14px; min-width:214px; box-shadow:0 6px 24px rgba(31,32,35,.07), 0 1px 3px rgba(31,32,35,.04);
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-m);
+  padding:10px 12px; min-width:208px; box-shadow:var(--shadow-1);
   font-family:var(--font-mono); font-size:11px; letter-spacing:.07em; color:var(--ink-2);
 }
 .readout .row{display:flex; justify-content:space-between; gap:14px}
@@ -161,9 +135,8 @@ button{font:inherit; color:inherit}
 
 .dock{
   position:absolute; left:clamp(14px,3vw,34px); bottom:calc(var(--pad-b) + clamp(14px,3vw,30px));
-  background:rgba(255, 255, 255, 0.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(221, 216, 208, 0.95); border-radius:var(--r-l);
-  box-shadow:0 8px 32px rgba(31,32,35,.08), 0 2px 6px rgba(31,32,35,.04); padding:13px; width:min(84vw,274px);
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-l);
+  box-shadow:var(--shadow-1); padding:12px; width:min(84vw,268px);
 }
 .dock h2{
   font-family:var(--font-mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
@@ -185,10 +158,9 @@ button{font:inherit; color:inherit}
   position:absolute; left:50%; transform:translateX(-50%);
   bottom:calc(var(--pad-b) + clamp(14px,3vw,26px));
   font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; color:var(--muted);
-  background:rgba(255, 255, 255, 0.86); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  padding:8px 16px; border-radius:100px; border:1px solid rgba(221, 216, 208, 0.9);
-  box-shadow:0 3px 16px rgba(31,32,35,.06);
-  text-align:center; max-width:min(90vw,460px);
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  padding:7px 13px; border-radius:100px; border:1px solid var(--line);
+  text-align:center; max-width:min(90vw,440px);
 }
 .hud.busy .dock,.hud.busy .hint{opacity:.35; transition:opacity .3s}
 
@@ -406,7 +378,6 @@ body.is-fallback #stage,body.is-fallback .hud,body.is-fallback #loader,body.is-f
   <div class="brand">
     <p class="name">Ubais Ahamed</p>
     <div class="role">QA Automation Engineer</div>
-    <div class="lab-badge"><span class="pulse-dot"></span> ROBOTIC QA LAB · CELL 06</div>
     <div class="rule"></div>
   </div>
 
@@ -840,7 +811,7 @@ body.is-fallback #stage,body.is-fallback .hud,body.is-fallback #loader,body.is-f
     workspace: { rMin: 0.72, rMax: 1.95, yMin: 0.45, yMax: 1.95 },
     gripper: { open: 0.375, closed: 0.292 },
     color: {
-      floor: 0xedeae4, floorLine: 0xe8590c, bg: 0xeeece6,
+      floor: 0xdedbd4, floorLine: 0xe8590c, bg: 0xf1efea,
       metal: 0xb9bcc2, metalDark: 0x6a6e75, charcoal: 0x2a2c30,
       orange: 0xe8590c, cardboard: 0xc49a68, pedestal: 0x33363b
     }
@@ -1293,304 +1264,6 @@ body.is-fallback #stage,body.is-fallback .hud,body.is-fallback #loader,body.is-f
     return t;
   }
 
-  /* ======================================================================
-     6b. PROCEDURAL LABORATORY TEXTURES
-     ====================================================================== */
-  function makeFloorGridTexture() {
-    var c = document.createElement("canvas");
-    c.width = 1024; c.height = 1024;
-    var x = c.getContext("2d");
-
-    // Base cleanroom epoxy floor
-    x.fillStyle = "#edeae3";
-    x.fillRect(0, 0, 1024, 1024);
-
-    // Subtle surface variation for realistic matte epoxy feel
-    var imgData = x.getImageData(0, 0, 1024, 1024);
-    var d = imgData.data;
-    for (var i = 0; i < d.length; i += 4) {
-      var n = (Math.random() - 0.5) * 5;
-      d[i] = Math.min(255, Math.max(0, d[i] + n));
-      d[i + 1] = Math.min(255, Math.max(0, d[i + 1] + n));
-      d[i + 2] = Math.min(255, Math.max(0, d[i + 2] + n));
-    }
-    x.putImageData(imgData, 0, 0);
-
-    // 1-meter modular grid seams (256px per tile, 4 tiles per repeat)
-    x.lineWidth = 2;
-    x.strokeStyle = "rgba(185, 180, 170, 0.75)";
-    for (var p = 0; p <= 1024; p += 256) {
-      x.beginPath(); x.moveTo(p, 0); x.lineTo(p, 1024); x.stroke();
-      x.beginPath(); x.moveTo(0, p); x.lineTo(1024, p); x.stroke();
-    }
-
-    // 0.5-meter sub-grid dashed lines
-    x.lineWidth = 1;
-    x.strokeStyle = "rgba(202, 198, 188, 0.5)";
-    x.setLineDash([4, 6]);
-    for (var sp = 128; sp < 1024; sp += 256) {
-      x.beginPath(); x.moveTo(sp, 0); x.lineTo(sp, 1024); x.stroke();
-      x.beginPath(); x.moveTo(0, sp); x.lineTo(1024, sp); x.stroke();
-    }
-    x.setLineDash([]);
-
-    // Precision crosshairs at tile intersections
-    x.lineWidth = 1.5;
-    x.strokeStyle = "rgba(130, 125, 115, 0.9)";
-    for (var gx = 0; gx <= 1024; gx += 256) {
-      for (var gy = 0; gy <= 1024; gy += 256) {
-        x.beginPath();
-        x.moveTo(gx - 11, gy); x.lineTo(gx + 11, gy);
-        x.moveTo(gx, gy - 11); x.lineTo(gx, gy + 11);
-        x.stroke();
-      }
-    }
-
-    // Technical coordinate stamps
-    x.fillStyle = "rgba(115, 110, 102, 0.55)";
-    x.font = "600 11px 'IBM Plex Mono', monospace";
-    for (var tx = 0; tx < 1024; tx += 256) {
-      for (var ty = 0; ty < 1024; ty += 256) {
-        x.fillText("+ LAB_REF [T-" + (tx / 256) + (ty / 256) + "]", tx + 12, ty + 24);
-        x.fillText("CAL_TOL ±0.02", tx + 12, ty + 38);
-      }
-    }
-
-    var tex = new THREE.CanvasTexture(c);
-    tex.wrapS = THREE.RepeatWrapping;
-    tex.wrapT = THREE.RepeatWrapping;
-    tex.repeat.set(12, 12);
-    tex.anisotropy = 4;
-    tex.encoding = THREE.sRGBEncoding;
-    return tex;
-  }
-
-  function makeSafetyChevronsTexture() {
-    var c = document.createElement("canvas");
-    c.width = 1024; c.height = 64;
-    var x = c.getContext("2d");
-
-    // Safety orange background
-    x.fillStyle = "#e8590c";
-    x.fillRect(0, 0, 1024, 64);
-
-    // Diagonal black hazard stripes
-    x.fillStyle = "#222428";
-    var stripeW = 32;
-    for (var p = -64; p < 1024 + 64; p += stripeW * 2) {
-      x.beginPath();
-      x.moveTo(p, 0);
-      x.lineTo(p + stripeW, 0);
-      x.lineTo(p + stripeW + 64, 64);
-      x.lineTo(p + 64, 64);
-      x.closePath();
-      x.fill();
-    }
-
-    // Crisp edge trims
-    x.fillStyle = "#222428";
-    x.fillRect(0, 0, 1024, 4);
-    x.fillRect(0, 60, 1024, 4);
-
-    var tex = new THREE.CanvasTexture(c);
-    tex.wrapS = THREE.RepeatWrapping;
-    tex.wrapT = THREE.ClampToEdgeWrapping;
-    tex.repeat.set(16, 1);
-    tex.anisotropy = 4;
-    tex.encoding = THREE.sRGBEncoding;
-    return tex;
-  }
-
-  function makeTurntableRingTexture() {
-    var c = document.createElement("canvas");
-    c.width = 512; c.height = 512;
-    var x = c.getContext("2d");
-
-    // Concentric machined steel rings
-    x.fillStyle = "#b4b8be";
-    x.beginPath(); x.arc(256, 256, 252, 0, Math.PI * 2); x.fill();
-
-    x.fillStyle = "#9fa3a9";
-    x.beginPath(); x.arc(256, 256, 234, 0, Math.PI * 2); x.fill();
-
-    x.fillStyle = "#8a8e94";
-    x.beginPath(); x.arc(256, 256, 204, 0, Math.PI * 2); x.fill();
-
-    // Degree graduation marks (every 10 deg)
-    x.strokeStyle = "#32353b";
-    x.fillStyle = "#26282c";
-    x.font = "600 13px 'IBM Plex Mono', monospace";
-    x.textAlign = "center";
-    x.textBaseline = "middle";
-
-    for (var deg = 0; deg < 360; deg += 10) {
-      var rad = (deg * Math.PI) / 180;
-      var cos = Math.cos(rad), sin = Math.sin(rad);
-      var isMajor = deg % 45 === 0;
-      var len = isMajor ? 18 : 10;
-      x.lineWidth = isMajor ? 2.5 : 1.2;
-      x.beginPath();
-      x.moveTo(256 + cos * (234 - len), 256 + sin * (234 - len));
-      x.lineTo(256 + cos * 234, 256 + sin * 234);
-      x.stroke();
-
-      if (isMajor) {
-        x.fillText(deg + "°", 256 + cos * 194, 256 + sin * 194);
-      }
-    }
-
-    var tex = new THREE.CanvasTexture(c);
-    tex.anisotropy = 4;
-    tex.encoding = THREE.sRGBEncoding;
-    return tex;
-  }
-
-  function makeTelemetryPanelTexture() {
-    var c = document.createElement("canvas");
-    c.width = 512; c.height = 512;
-    var x = c.getContext("2d");
-
-    // Deep graphite monitor screen
-    x.fillStyle = "#1b1d22";
-    x.fillRect(0, 0, 512, 512);
-
-    // Subtle background telemetry grid
-    x.strokeStyle = "rgba(45, 52, 64, 0.7)";
-    x.lineWidth = 1;
-    for (var p = 0; p <= 512; p += 32) {
-      x.beginPath(); x.moveTo(p, 0); x.lineTo(p, 512); x.stroke();
-      x.beginPath(); x.moveTo(0, p); x.lineTo(512, p); x.stroke();
-    }
-
-    // Title bar
-    x.fillStyle = "#252830";
-    x.fillRect(16, 16, 480, 44);
-    x.fillStyle = "#e8590c";
-    x.fillRect(16, 16, 6, 44);
-    x.fillStyle = "#f0eee9";
-    x.font = "600 16px 'IBM Plex Mono', monospace";
-    x.fillText("QA AUTOMATION RIG · TELEMETRY", 34, 44);
-
-    // Status pill
-    x.fillStyle = "rgba(47, 125, 79, 0.25)";
-    x.strokeStyle = "#2f7d4f";
-    x.lineWidth = 1.5;
-    x.fillRect(340, 24, 140, 28);
-    x.strokeRect(340, 24, 140, 28);
-    x.fillStyle = "#4ade80";
-    x.font = "600 12px 'IBM Plex Mono', monospace";
-    x.fillText("● SYSTEM ONLINE", 350, 43);
-
-    // Metrics
-    x.fillStyle = "#8a8d95";
-    x.font = "500 12px 'IBM Plex Mono', monospace";
-    x.fillText("EXECUTION ENGINE", 24, 90);
-    x.fillStyle = "#ffffff";
-    x.font = "600 20px 'IBM Plex Mono', monospace";
-    x.fillText("PLAYWRIGHT / E2E", 24, 116);
-
-    x.fillStyle = "#8a8d95";
-    x.font = "500 12px 'IBM Plex Mono', monospace";
-    x.fillText("TEST SUITE PASS RATE", 270, 90);
-    x.fillStyle = "#4ade80";
-    x.font = "600 24px 'IBM Plex Mono', monospace";
-    x.fillText("99.4%", 270, 118);
-
-    // Divider
-    x.fillStyle = "#2d3038";
-    x.fillRect(24, 134, 464, 2);
-
-    // Progress bars
-    var bars = [
-      { label: "API REGRESSION", pct: 0.98, color: "#2f7d4f" },
-      { label: "UI WORKFLOW QA", pct: 0.95, color: "#e8590c" },
-      { label: "PERFORMANCE AUDIT", pct: 0.92, color: "#3b82f6" },
-      { label: "CROSS-BROWSER CI", pct: 1.00, color: "#2f7d4f" }
-    ];
-
-    bars.forEach(function (b, idx) {
-      var y = 160 + idx * 46;
-      x.fillStyle = "#a2a6b0";
-      x.font = "500 12px 'IBM Plex Mono', monospace";
-      x.fillText(b.label, 24, y);
-      x.fillStyle = "#e0ded9";
-      x.fillText(Math.round(b.pct * 100) + "%", 446, y);
-
-      // Track
-      x.fillStyle = "#252830";
-      x.fillRect(24, y + 8, 464, 8);
-      // Fill
-      x.fillStyle = b.color;
-      x.fillRect(24, y + 8, 464 * b.pct, 8);
-    });
-
-    // Oscilloscope waveform simulation at bottom
-    x.fillStyle = "#181a1f";
-    x.fillRect(24, 356, 464, 120);
-    x.strokeStyle = "rgba(232, 89, 12, 0.85)";
-    x.lineWidth = 2;
-    x.beginPath();
-    for (var wx = 0; wx < 464; wx += 4) {
-      var wy = 416 + Math.sin(wx * 0.08) * 18 + Math.cos(wx * 0.17) * 12;
-      if (wx === 0) x.moveTo(24 + wx, wy);
-      else x.lineTo(24 + wx, wy);
-    }
-    x.stroke();
-
-    x.fillStyle = "rgba(232, 89, 12, 0.9)";
-    x.font = "500 11px 'IBM Plex Mono', monospace";
-    x.fillText("SIGNAL: ACTUATOR IK TELEMETRY [SYNC 60Hz]", 34, 380);
-
-    var tex = new THREE.CanvasTexture(c);
-    tex.anisotropy = 4;
-    tex.encoding = THREE.sRGBEncoding;
-    return tex;
-  }
-
-  function makePedestalTargetTexture(num) {
-    var c = document.createElement("canvas");
-    c.width = 256; c.height = 256;
-    var x = c.getContext("2d");
-
-    x.clearRect(0, 0, 256, 256);
-
-    // Outer target ring
-    x.strokeStyle = "#e8590c";
-    x.lineWidth = 3;
-    x.beginPath();
-    x.arc(128, 128, 114, 0, Math.PI * 2);
-    x.stroke();
-
-    // Dashed inner ring
-    x.setLineDash([6, 8]);
-    x.strokeStyle = "rgba(38, 40, 44, 0.4)";
-    x.lineWidth = 2;
-    x.beginPath();
-    x.arc(128, 128, 88, 0, Math.PI * 2);
-    x.stroke();
-    x.setLineDash([]);
-
-    // Corner alignment brackets
-    var s = 62;
-    x.strokeStyle = "#26282c";
-    x.lineWidth = 3;
-    x.beginPath(); x.moveTo(128 - s, 128 - s + 18); x.lineTo(128 - s, 128 - s); x.lineTo(128 - s + 18, 128 - s); x.stroke();
-    x.beginPath(); x.moveTo(128 + s, 128 - s + 18); x.lineTo(128 + s, 128 - s); x.lineTo(128 + s - 18, 128 - s); x.stroke();
-    x.beginPath(); x.moveTo(128 - s, 128 + s - 18); x.lineTo(128 - s, 128 + s); x.lineTo(128 - s + 18, 128 + s); x.stroke();
-    x.beginPath(); x.moveTo(128 + s, 128 + s - 18); x.lineTo(128 + s, 128 + s); x.lineTo(128 + s - 18, 128 + s); x.stroke();
-
-    // Bay number
-    x.fillStyle = "#e8590c";
-    x.font = "700 24px 'IBM Plex Mono', monospace";
-    x.textAlign = "center";
-    x.fillText("BAY " + num, 128, 136);
-
-    var tex = new THREE.CanvasTexture(c);
-    tex.anisotropy = 4;
-    tex.encoding = THREE.sRGBEncoding;
-    return tex;
-  }
-
   /* Rounded/bevelled box, used for robot links. */
   function beveledBox(w, h, d, r) {
     var s = new THREE.Shape();
@@ -1976,38 +1649,80 @@ body.is-fallback #stage,body.is-fallback .hud,body.is-fallback #loader,body.is-f
 
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(C.bg);
-    this.scene.fog = new THREE.Fog(C.bg, 18, 42);
+    this.scene.fog = new THREE.Fog(C.bg, 13, 30);
 
     this.camera = new THREE.PerspectiveCamera(
       CFG.camera.fov, window.innerWidth / window.innerHeight, 0.1, 120);
     this.rig = new CameraRig(this.camera);
 
-    /* ---- lighting: bright, clean, industrial studio -------------- */
-    this.scene.add(new THREE.HemisphereLight(0xffffff, 0xd0cbc2, 0.85));
-    var key = new THREE.DirectionalLight(0xfff5ea, 1.25);
-    key.position.set(4.5, 7.8, 5.2);
+    /* ---- lighting: bright, clean, industrial ---------------------- */
+    this.scene.add(new THREE.HemisphereLight(0xffffff, 0xcfc9be, 0.78));
+    var key = new THREE.DirectionalLight(0xfff6ec, 1.15);
+    key.position.set(4.2, 7.4, 5.0);
     key.castShadow = true;
     var sm = IS_SMALL ? 1024 : 2048;
     key.shadow.mapSize.set(sm, sm);
     key.shadow.camera.near = 1;
-    key.shadow.camera.far = 24;
-    key.shadow.camera.left = -8; key.shadow.camera.right = 8;
-    key.shadow.camera.top = 8; key.shadow.camera.bottom = -8;
+    key.shadow.camera.far = 22;
+    key.shadow.camera.left = -7; key.shadow.camera.right = 7;
+    key.shadow.camera.top = 7; key.shadow.camera.bottom = -7;
     key.shadow.bias = -0.0012;
     key.shadow.normalBias = 0.02;
     this.scene.add(key);
-    var fill = new THREE.DirectionalLight(0xedf2f8, 0.5);
-    fill.position.set(-5.5, 4.0, -2.0);
+    var fill = new THREE.DirectionalLight(0xe9eef5, 0.4);
+    fill.position.set(-5.5, 3.6, -2.4);
     this.scene.add(fill);
-    var wallWash = new THREE.DirectionalLight(0xfff7ee, 0.45);
-    wallWash.position.set(0.0, 4.5, 3.5);
-    this.scene.add(wallWash);
-    var rim = new THREE.DirectionalLight(0xffffff, 0.35);
-    rim.position.set(-2.0, 2.5, -6.0);
+    var rim = new THREE.DirectionalLight(0xffffff, 0.28);
+    rim.position.set(-1.5, 2.2, -6);
     this.scene.add(rim);
 
-    /* ---- modern bright engineering laboratory environment -------- */
-    this.buildLabEnvironment();
+    /* ---- floor and safety marking --------------------------------- */
+    var floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(50, 50),
+      new THREE.MeshStandardMaterial({ color: C.floor, roughness: 0.95, metalness: 0.0 })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.receiveShadow = true;
+    this.scene.add(floor);
+
+    var zone = new THREE.Mesh(
+      new THREE.RingGeometry(2.28, 2.40, 64, 1, -0.25, 2.1),
+      new THREE.MeshBasicMaterial({ color: C.floorLine, transparent: true, opacity: 0.7 })
+    );
+    zone.rotation.x = -Math.PI / 2;
+    zone.position.y = 0.004;
+    this.scene.add(zone);
+
+    var pad = new THREE.Mesh(
+      new THREE.CircleGeometry(0.85, 40),
+      new THREE.MeshStandardMaterial({ color: 0xcfcbc3, roughness: 0.9 })
+    );
+    pad.rotation.x = -Math.PI / 2;
+    pad.position.y = 0.002;
+    pad.receiveShadow = true;
+    this.scene.add(pad);
+
+    /* ---- background props (deliberately sparse) -------------------- */
+    var crateMat = new THREE.MeshStandardMaterial({ color: 0xbd9464, roughness: 0.95 });
+    var rackMat = new THREE.MeshStandardMaterial({ color: 0x3a3d42, roughness: 0.6, metalness: 0.4 });
+    var crateGeo = new THREE.BoxGeometry(0.62, 0.46, 0.62);
+    [[-2.9, 0.23, -1.5], [-2.9, 0.69, -1.5], [-2.3, 0.23, -2.0], [2.6, 0.23, -2.4]]
+      .forEach(function (p) {
+        var m = new THREE.Mesh(crateGeo, crateMat);
+        m.position.set(p[0], p[1], p[2]);
+        m.rotation.y = (Math.random() - 0.5) * 0.4;
+        m.castShadow = true; m.receiveShadow = true;
+        self.scene.add(m);
+      });
+    var rack = new THREE.Mesh(new THREE.BoxGeometry(5.2, 0.08, 0.5), rackMat);
+    rack.position.set(-1.2, 1.55, -3.2); rack.castShadow = true;
+    this.scene.add(rack);
+    var rack2 = rack.clone(); rack2.position.y = 0.95; this.scene.add(rack2);
+    [-3.7, 1.3].forEach(function (x) {
+      var post = new THREE.Mesh(new THREE.BoxGeometry(0.1, 2.0, 0.5), rackMat);
+      post.position.set(x, 1.0, -3.2); post.castShadow = true;
+      self.scene.add(post);
+    });
 
     /* ---- robot ----------------------------------------------------- */
     this.robotModel = new RobotModel();
@@ -2029,21 +1744,6 @@ body.is-fallback #stage,body.is-fallback .hud,body.is-fallback #loader,body.is-f
       var ang = S.angles[section.slot.col];
       var rad = S.radii[section.slot.row];
       var px = Math.sin(ang) * rad, pz = Math.cos(ang) * rad;
-
-      /* precision landing target decal on the floor under the pedestal */
-      var targetDecal = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.88, 0.88),
-        new THREE.MeshBasicMaterial({
-          map: makePedestalTargetTexture(section.num),
-          transparent: true,
-          opacity: 0.85,
-          depthWrite: false
-        })
-      );
-      targetDecal.rotation.x = -Math.PI / 2;
-      targetDecal.rotation.z = -ang;
-      targetDecal.position.set(px, 0.002, pz);
-      self.staging.add(targetDecal);
 
       var ped = new THREE.Mesh(pedGeo, pedMat);
       ped.position.set(px, S.pedestal.h / 2, pz);
@@ -2368,391 +2068,6 @@ body.is-fallback #stage,body.is-fallback .hud,body.is-fallback #loader,body.is-f
     this.runPhases(ret);
   };
 
-  /* ---------------- architectural laboratory environment ------------- */
-  Lab.prototype.buildLabEnvironment = function () {
-    var self = this;
-    var matSteel = new THREE.MeshStandardMaterial({ color: 0x8f939a, metalness: 0.75, roughness: 0.32 });
-    var matDarkMetal = new THREE.MeshStandardMaterial({ color: 0x282a2e, metalness: 0.65, roughness: 0.45 });
-    var matWall = new THREE.MeshStandardMaterial({ color: 0xedeae3, roughness: 0.92, metalness: 0.04 });
-    var matWallTrim = new THREE.MeshStandardMaterial({ color: 0x9ca0a6, metalness: 0.5, roughness: 0.4 });
-    var matGirder = new THREE.MeshStandardMaterial({ color: 0x2a2c31, metalness: 0.6, roughness: 0.5 });
-    var matHazard = new THREE.MeshStandardMaterial({ color: 0xe5a93b, metalness: 0.2, roughness: 0.5 });
-
-    /* 1. Precision laboratory grid floor */
-    var floorGeo = new THREE.PlaneGeometry(60, 60);
-    var floorMat = new THREE.MeshStandardMaterial({
-      map: makeFloorGridTexture(),
-      roughness: 0.86,
-      metalness: 0.08
-    });
-    var floor = new THREE.Mesh(floorGeo, floorMat);
-    floor.rotation.x = -Math.PI / 2;
-    floor.receiveShadow = true;
-    this.scene.add(floor);
-
-    /* 2. Safety perimeter hazard ring */
-    var zone = new THREE.Mesh(
-      new THREE.RingGeometry(2.32, 2.54, 64),
-      new THREE.MeshStandardMaterial({
-        map: makeSafetyChevronsTexture(),
-        roughness: 0.75,
-        side: THREE.DoubleSide
-      })
-    );
-    zone.rotation.x = -Math.PI / 2;
-    zone.position.y = 0.003;
-    zone.receiveShadow = true;
-    this.scene.add(zone);
-
-    /* Concentric metric arcs on floor */
-    [1.0, 1.5, 2.0].forEach(function (r) {
-      var arc = new THREE.Mesh(
-        new THREE.RingGeometry(r, r + 0.012, 48, 1, -0.2, 2.1),
-        new THREE.MeshBasicMaterial({ color: 0x9ca0a8, transparent: true, opacity: 0.45 })
-      );
-      arc.rotation.x = -Math.PI / 2;
-      arc.position.y = 0.0025;
-      self.scene.add(arc);
-    });
-
-    /* 3. Machined steel robot base mounting plinth */
-    var plinth = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.95, 0.98, 0.038, 48),
-      new THREE.MeshStandardMaterial({
-        map: makeTurntableRingTexture(),
-        roughness: 0.45,
-        metalness: 0.65
-      })
-    );
-    plinth.position.y = 0.019;
-    plinth.receiveShadow = true;
-    plinth.castShadow = true;
-    this.scene.add(plinth);
-
-    /* 8 hex anchor bolts on the plinth */
-    var boltGeo = new THREE.CylinderGeometry(0.024, 0.024, 0.022, 6);
-    var boltMat = new THREE.MeshStandardMaterial({ color: 0x222428, metalness: 0.8, roughness: 0.3 });
-    for (var b = 0; b < 8; b++) {
-      var bAngle = (b / 8) * Math.PI * 2;
-      var bolt = new THREE.Mesh(boltGeo, boltMat);
-      bolt.position.set(Math.cos(bAngle) * 0.88, 0.046, Math.sin(bAngle) * 0.88);
-      bolt.castShadow = true;
-      this.scene.add(bolt);
-    }
-
-    /* 4. Architectural cleanroom wall & panels */
-    var wallGroup = new THREE.Group();
-    wallGroup.name = "ArchitecturalLab";
-
-    // Main back wall
-    var backWall = new THREE.Mesh(new THREE.PlaneGeometry(28, 7.5), matWall);
-    backWall.position.set(0, 3.75, -4.4);
-    backWall.receiveShadow = true;
-    wallGroup.add(backWall);
-
-    // Vertical aluminum panel seams every 2.4m
-    for (var wx = -12; wx <= 12; wx += 2.4) {
-      var vSeam = new THREE.Mesh(new THREE.BoxGeometry(0.035, 7.5, 0.02), matWallTrim);
-      vSeam.position.set(wx, 3.75, -4.39);
-      wallGroup.add(vSeam);
-    }
-    // Horizontal aluminum panel seams
-    [2.4, 4.8].forEach(function (wy) {
-      var hSeam = new THREE.Mesh(new THREE.BoxGeometry(28, 0.035, 0.02), matWallTrim);
-      hSeam.position.set(0, wy, -4.39);
-      wallGroup.add(hSeam);
-    });
-
-    // Aluminum power & data raceway (conduit) along floor line
-    var trunking = new THREE.Mesh(new THREE.BoxGeometry(28, 0.28, 0.14), matDarkMetal);
-    trunking.position.set(0, 0.14, -4.33);
-    trunking.receiveShadow = true;
-    wallGroup.add(trunking);
-
-    // Power outlets and hazard badges on raceway
-    var socketGeo = new THREE.BoxGeometry(0.12, 0.09, 0.04);
-    var socketMat = new THREE.MeshStandardMaterial({ color: 0xd6d8d2, roughness: 0.6 });
-    for (var sx = -9; sx <= 9; sx += 3) {
-      var socket = new THREE.Mesh(socketGeo, socketMat);
-      socket.position.set(sx, 0.15, -4.25);
-      wallGroup.add(socket);
-    }
-
-    // Heavy overhead ceiling girder / I-beam
-    var girder = new THREE.Mesh(new THREE.BoxGeometry(28, 0.45, 0.5), matGirder);
-    girder.position.set(0, 5.2, -4.15);
-    girder.castShadow = true;
-    wallGroup.add(girder);
-
-    // Architectural structural columns
-    [-6.2, 5.8].forEach(function (cx) {
-      var col = new THREE.Mesh(new THREE.BoxGeometry(0.7, 7.0, 0.7), matWall);
-      col.position.set(cx, 3.5, -4.0);
-      col.castShadow = true; col.receiveShadow = true;
-      wallGroup.add(col);
-
-      var hazardBand = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.16, 0.72), matHazard);
-      hazardBand.position.set(cx, 1.4, -4.0);
-      wallGroup.add(hazardBand);
-    });
-
-    /* 5. Cleanroom inspection observation window */
-    var winFrame = new THREE.Mesh(new THREE.BoxGeometry(5.6, 2.6, 0.18), matDarkMetal);
-    winFrame.position.set(0.6, 2.5, -4.34);
-    winFrame.castShadow = true;
-    wallGroup.add(winFrame);
-
-    // Window sill
-    var winSill = new THREE.Mesh(new THREE.BoxGeometry(5.8, 0.08, 0.32), matSteel);
-    winSill.position.set(0.6, 1.18, -4.26);
-    winSill.castShadow = true; winSill.receiveShadow = true;
-    wallGroup.add(winSill);
-
-    // 2 vertical window mullions
-    [-1.0, 2.2].forEach(function (mx) {
-      var mullion = new THREE.Mesh(new THREE.BoxGeometry(0.08, 2.5, 0.2), matDarkMetal);
-      mullion.position.set(mx, 2.5, -4.33);
-      wallGroup.add(mullion);
-    });
-
-    // Glass pane with soft tint & reflection
-    var winGlass = new THREE.Mesh(
-      new THREE.PlaneGeometry(5.4, 2.45),
-      new THREE.MeshStandardMaterial({
-        color: 0xc4dbed,
-        transparent: true,
-        opacity: 0.36,
-        roughness: 0.12,
-        metalness: 0.4
-      })
-    );
-    winGlass.position.set(0.6, 2.5, -4.32);
-    wallGroup.add(winGlass);
-
-    // Control room behind the glass
-    var ctrlWall = new THREE.Mesh(
-      new THREE.PlaneGeometry(8, 4),
-      new THREE.MeshStandardMaterial({ color: 0xd8dde3, roughness: 0.85 })
-    );
-    ctrlWall.position.set(0.6, 2.5, -6.8);
-    wallGroup.add(ctrlWall);
-
-    var ctrlLight = new THREE.PointLight(0xbde0fe, 0.7, 8);
-    ctrlLight.position.set(0.6, 2.7, -5.4);
-    wallGroup.add(ctrlLight);
-
-    // Server rack silhouettes inside control room
-    [-0.8, 2.0].forEach(function (rx) {
-      var crServer = new THREE.Mesh(new THREE.BoxGeometry(0.7, 2.2, 0.5), matDarkMetal);
-      crServer.position.set(rx, 1.1, -5.8);
-      wallGroup.add(crServer);
-    });
-
-    /* 6. Wall-mounted QA Telemetry Display Panel */
-    var telGroup = new THREE.Group();
-    telGroup.position.set(-4.2, 2.4, -4.32);
-
-    var telFrame = new THREE.Mesh(new THREE.BoxGeometry(1.85, 1.85, 0.08), matDarkMetal);
-    telFrame.castShadow = true;
-    telGroup.add(telFrame);
-
-    var telScreen = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.75, 1.75),
-      new THREE.MeshBasicMaterial({ map: makeTelemetryPanelTexture() })
-    );
-    telScreen.position.z = 0.045;
-    telGroup.add(telScreen);
-
-    // 3 Status indicator LED bezels on telemetry unit
-    this.leds = [];
-    var ledColors = [
-      { c: 0x22c55e, e: 0x22c55e, i: 1.4 },
-      { c: 0xf97316, e: 0xf97316, i: 1.0 },
-      { c: 0x3b82f6, e: 0x3b82f6, i: 1.0 }
-    ];
-    ledColors.forEach(function (lc, idx) {
-      var ledMat = new THREE.MeshStandardMaterial({
-        color: lc.c, emissive: lc.e, emissiveIntensity: lc.i, roughness: 0.2
-      });
-      var ledMesh = new THREE.Mesh(new THREE.SphereGeometry(0.024, 16, 16), ledMat);
-      ledMesh.position.set(0.55 + idx * 0.1, 0.78, 0.05);
-      telGroup.add(ledMesh);
-      self.leds.push(ledMesh);
-    });
-
-    // Steel conduit pipes connecting telemetry unit to upper girder
-    var pipeGeo = new THREE.CylinderGeometry(0.025, 0.025, 2.5, 16);
-    var pipe = new THREE.Mesh(pipeGeo, matSteel);
-    pipe.position.set(0.4, 1.8, 0.02);
-    telGroup.add(pipe);
-
-    wallGroup.add(telGroup);
-
-    /* 7. Wall-mounted Emergency Stop Station */
-    var eStopGroup = new THREE.Group();
-    eStopGroup.position.set(4.5, 2.2, -4.32);
-
-    var eBox = new THREE.Mesh(new THREE.BoxGeometry(0.65, 1.05, 0.16), matHazard);
-    eBox.castShadow = true;
-    eStopGroup.add(eBox);
-
-    var eBtn = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.065, 0.065, 0.05, 20),
-      new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.3 })
-    );
-    eBtn.rotation.x = Math.PI / 2;
-    eBtn.position.set(0, 0.15, 0.09);
-    eStopGroup.add(eBtn);
-
-    var gaugeRing = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.09, 0.09, 0.03, 24),
-      matSteel
-    );
-    gaugeRing.rotation.x = Math.PI / 2;
-    gaugeRing.position.set(0, -0.22, 0.09);
-    eStopGroup.add(gaugeRing);
-
-    wallGroup.add(eStopGroup);
-
-    /* 8. Mid-ground 19-inch QA Automation Server Rack */
-    var rackGroup = new THREE.Group();
-    rackGroup.position.set(-3.4, 1.2, -2.6);
-
-    var rackBody = new THREE.Mesh(new THREE.BoxGeometry(0.75, 2.4, 0.65), matDarkMetal);
-    rackBody.castShadow = true; rackBody.receiveShadow = true;
-    rackGroup.add(rackBody);
-
-    // Front equipment units
-    for (var u = 0; u < 7; u++) {
-      var unit = new THREE.Mesh(
-        new THREE.BoxGeometry(0.68, 0.18, 0.03),
-        new THREE.MeshStandardMaterial({ color: u % 2 === 0 ? 0x363940 : 0x2b2d33, metalness: 0.7, roughness: 0.4 })
-      );
-      unit.position.set(0, -0.85 + u * 0.28, 0.33);
-      rackGroup.add(unit);
-
-      // Micro LED indicators on each unit
-      var uLed = new THREE.Mesh(
-        new THREE.BoxGeometry(0.015, 0.015, 0.015),
-        new THREE.MeshStandardMaterial({
-          color: u === 3 ? 0xf97316 : 0x22c55e,
-          emissive: u === 3 ? 0xf97316 : 0x22c55e,
-          emissiveIntensity: 1.2
-        })
-      );
-      uLed.position.set(-0.25, -0.85 + u * 0.28, 0.35);
-      rackGroup.add(uLed);
-      this.leds.push(uLed);
-    }
-    wallGroup.add(rackGroup);
-
-    /* 9. Mid-ground Stainless Steel Mobile Inspection Cart */
-    var cartGroup = new THREE.Group();
-    cartGroup.position.set(3.6, 0.55, -2.2);
-
-    var cartFrame = new THREE.Mesh(new THREE.BoxGeometry(1.05, 1.1, 0.6), matSteel);
-    cartFrame.castShadow = true; cartFrame.receiveShadow = true;
-    cartGroup.add(cartFrame);
-
-    // Diagnostic tablet screen on top shelf
-    var tabScreen = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.38, 0.26),
-      new THREE.MeshStandardMaterial({ color: 0x0ea5e9, emissive: 0x0284c7, emissiveIntensity: 0.5 })
-    );
-    tabScreen.rotation.x = -Math.PI / 4;
-    tabScreen.position.set(0, 0.68, 0.05);
-    cartGroup.add(tabScreen);
-
-    // 2 QA test cases on bottom shelf
-    var caseMat = new THREE.MeshStandardMaterial({ color: 0xbd9464, roughness: 0.9 });
-    var case1 = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.26, 0.38), caseMat);
-    case1.position.set(-0.22, -0.22, 0); case1.castShadow = true;
-    cartGroup.add(case1);
-    var case2 = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.22, 0.34), caseMat);
-    case2.position.set(0.24, -0.24, 0); case2.castShadow = true;
-    cartGroup.add(case2);
-
-    wallGroup.add(cartGroup);
-
-    /* 10. Overhead suspended industrial studio luminaire (Task Light) */
-    var lumGroup = new THREE.Group();
-    lumGroup.position.set(0.8, 4.1, 0.8);
-
-    var lumHousing = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.12, 0.42), matDarkMetal);
-    lumHousing.castShadow = true;
-    lumGroup.add(lumHousing);
-
-    // Glowing diffuser on bottom
-    var lumDiffuser = new THREE.Mesh(
-      new THREE.PlaneGeometry(3.7, 0.38),
-      new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        emissive: 0xfff9ef,
-        emissiveIntensity: 0.95
-      })
-    );
-    lumDiffuser.rotation.x = Math.PI / 2;
-    lumDiffuser.position.y = -0.062;
-    lumGroup.add(lumDiffuser);
-
-    // 4 vertical suspension aircraft cables to ceiling
-    var cableGeo = new THREE.CylinderGeometry(0.005, 0.005, 1.8);
-    [[-1.8, -0.16], [1.8, -0.16], [-1.8, 0.16], [1.8, 0.16]].forEach(function (cp) {
-      var cable = new THREE.Mesh(cableGeo, matSteel);
-      cable.position.set(cp[0], 0.9, cp[1]);
-      lumGroup.add(cable);
-    });
-
-    // Studio task light directly under the luminaire
-    var taskLight = new THREE.PointLight(0xfff6ec, 0.85, 9);
-    taskLight.position.set(0.8, 3.8, 0.8);
-    this.scene.add(taskLight);
-
-    wallGroup.add(lumGroup);
-
-    /* 11. Subtle cleanroom floating air motes */
-    var particleCount = 75;
-    var particleGeo = new THREE.BufferGeometry();
-    var pPositions = new Float32Array(particleCount * 3);
-    for (var pi = 0; pi < particleCount; pi++) {
-      pPositions[pi * 3] = (Math.random() - 0.5) * 8;
-      pPositions[pi * 3 + 1] = 0.2 + Math.random() * 3.4;
-      pPositions[pi * 3 + 2] = (Math.random() - 0.5) * 6;
-    }
-    particleGeo.setAttribute("position", new THREE.BufferAttribute(pPositions, 3));
-
-    var particleMat = new THREE.PointsMaterial({
-      color: 0xffeedd,
-      size: 0.028,
-      transparent: true,
-      opacity: 0.38,
-      depthWrite: false
-    });
-    this.particles = new THREE.Points(particleGeo, particleMat);
-    wallGroup.add(this.particles);
-
-    this.scene.add(wallGroup);
-  };
-
-  Lab.prototype.updateEnv = function (dt) {
-    if (REDUCED) return;
-    if (this.particles) {
-      var pos = this.particles.geometry.attributes.position;
-      var arr = pos.array;
-      for (var i = 1; i < arr.length; i += 3) {
-        arr[i] += dt * 0.04;
-        if (arr[i] > 3.6) arr[i] = 0.2;
-      }
-      pos.needsUpdate = true;
-    }
-    if (this.leds && this.leds.length) {
-      var pulse = 0.85 + Math.sin(this.idleTime * 4.0) * 0.35;
-      for (var j = 0; j < Math.min(3, this.leds.length); j++) {
-        this.leds[j].material.emissiveIntensity = pulse;
-      }
-    }
-  };
-
   /* ---------------- main loop ---------------------------------------- */
   Lab.prototype.start = function () {
     var self = this;
@@ -2787,7 +2102,6 @@ body.is-fallback #stage,body.is-fallback .hud,body.is-fallback #loader,body.is-f
         }
       }
 
-      if (self.updateEnv) self.updateEnv(dt);
       self.rig.update(dt, self.pointer, LabState.currentMode === "IDLE");
       self.renderer.render(self.scene, self.camera);
       window.requestAnimationFrame(frame);
