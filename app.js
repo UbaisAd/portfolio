@@ -261,18 +261,48 @@
 
     contact: function () {
       var c = DATA.contact, p = DATA.profile;
+      var resumeHtml = "";
+      var emailHtml = "";
+
+      if (c.resume || c.resumeUrl) {
+        var rUrl = c.resume || c.resumeUrl;
+        var rName = c.resumeFilename || "Ubais_Ahamed_Resume.pdf";
+        resumeHtml = '<li><a class="btn-accent" href="' + U.esc(rUrl) + '" target="_blank" rel="noopener">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:text-bottom;margin-right:5px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>' +
+          'View Résumé (PDF)</a></li>' +
+          '<li><a href="' + U.esc(rUrl) + '" download="' + U.esc(rName) + '">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:text-bottom;margin-right:5px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>' +
+          'Download Résumé</a></li>';
+      } else if (c.resumePlaceholder) {
+        resumeHtml = '<li><span class="ghost" role="note">' + U.esc(c.resumePlaceholder) + ' <small>placeholder</small></span></li>';
+      }
+
+      if (c.email) {
+        emailHtml = '<li><a href="mailto:' + U.esc(c.email) + '">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:text-bottom;margin-right:5px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>' +
+          'Email · ' + U.esc(c.email) + '</a></li>';
+      } else if (c.emailPlaceholder) {
+        emailHtml = '<li><span class="ghost" role="note">' + U.esc(c.emailPlaceholder) + ' <small>placeholder</small></span></li>';
+      }
+
+      var directBlock = "";
+      if (c.resume || c.email) {
+        directBlock = '<div class="block"><span class="tag">Direct contact & documents</span>' +
+          '<ul class="linklist">' + resumeHtml + emailHtml + '</ul>' +
+          '<p style="margin-top:14px">My résumé is available above for instant viewing and offline download. For inquiries, interviews, or collaboration, feel free to send an email or connect on LinkedIn.</p></div>';
+      } else {
+        directBlock = '<div class="block"><span class="tag">Not published yet</span>' +
+          '<ul class="linklist">' + emailHtml + resumeHtml + '</ul>' +
+          '<p>These two buttons are intentionally inactive — no address or file has been published for them.</p></div>';
+      }
+
       return '<h1 id="content-heading">' + U.esc(c.heading) + "</h1>" +
         '<p class="lede">' + U.esc(c.blurb) + "</p>" +
         '<dl class="meta-grid"><div><dt>Name</dt><dd>' + U.esc(p.name) + "</dd></div>" +
         "<div><dt>Role</dt><dd>" + U.esc(p.shortRole) + "</dd></div>" +
         "<div><dt>Location</dt><dd>" + U.esc(p.location) + "</dd></div></dl>" +
         '<div class="block"><span class="tag">Profiles</span>' + Content.links() + "</div>" +
-        '<div class="block"><span class="tag">Not published yet</span>' +
-        '<ul class="linklist">' +
-        '<li><span class="ghost" role="note">' + U.esc(c.emailPlaceholder) + " <small>placeholder</small></span></li>" +
-        '<li><span class="ghost" role="note">' + U.esc(c.resumePlaceholder) + " <small>placeholder</small></span></li>" +
-        "</ul>" +
-        "<p>These two buttons are intentionally inactive — no address or file has been published for them.</p></div>";
+        directBlock;
     },
 
     render: function (id) { return Content[id] ? Content[id]() : ""; }

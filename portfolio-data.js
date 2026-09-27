@@ -147,7 +147,7 @@
         "A manual testing project focused on validating a demo e-commerce application through structured test scenarios, test cases, execution, defect identification, and reporting.",
       features: ["Test scenario design", "Test case design", "Test execution", "Functional testing",
         "Regression testing", "Bug reporting", "Result validation"],
-      stat: { value: "25+", label: "test cases designed and executed" }
+      stat: { value: "100+", label: "test cases designed and executed" }
     }
   ];
 
@@ -278,9 +278,12 @@
 
   var CONTACT = {
     heading: "Let's build better software.",
-    blurb: "Open to QA and test automation roles. The quickest way to reach me is LinkedIn.",
-    emailPlaceholder: "Email — add address",
-    resumePlaceholder: "Résumé — add file"
+    blurb: "Open to QA and test automation roles. Feel free to view or download my résumé, or reach out directly.",
+    email: "ubais.ahmed04@gmail.com",
+    resume: "./Resume.pdf",
+    resumeFilename: "Ubais_Ahamed_Resume.pdf",
+    emailPlaceholder: "Email — ubais.ahmed04@gmail.com",
+    resumePlaceholder: "Résumé — Resume.pdf"
   };
 
   global.PORTFOLIO = {
